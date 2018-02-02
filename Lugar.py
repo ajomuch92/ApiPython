@@ -88,4 +88,4 @@ class Lugar():
         return one
 
     def __str__(self):
-        return self.toJson()
+        return str(self.lugar_id) + '-' + self.lugar

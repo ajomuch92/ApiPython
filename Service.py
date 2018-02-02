@@ -24,4 +24,12 @@ class Service():
         i = self.lugares.index(self.getOne(lugar_id)[0])
         self.lugares[i] = lugar.update(self.mydb)
         return self.lugares[i]
+
+    def deletePlace(self, lugar_id):
+        json = self.getOne(lugar_id)[0]
+        lugar = Lugar(json['lugar'], json['tipo_lugar_id'], json['codigo'], json['extension'], json['latitud'], json['longitud'], json['padre_id'])
+        lugar.setId(lugar_id)
+        lugar.delete(self.mydb)
+        self.lugares.remove(json)
+        return 'deleted'
         

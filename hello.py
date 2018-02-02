@@ -38,5 +38,13 @@ def update_place(lugar_id):
     l = service.updatePlace(lugar_id, request.json)
     return jsonify({'lugar': l})
 
+@app.route('/lugares/<int:lugar_id>', methods=['DELETE'])
+def delete_place(lugar_id):
+    lugar = service.getOne(lugar_id)
+    if len(lugar) == 0:
+        abort(404)
+    l = service.deletePlace(lugar_id)
+    return jsonify({'lugar': l})
+
 if __name__ == '__main__':
     app.run(debug=True)
