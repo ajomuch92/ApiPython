@@ -12,6 +12,9 @@ class Service():
     def getOne(self, lugar_id):
         return [lugar for lugar in self.lugares if lugar['id'] == lugar_id]
 
+    def getAllDetails(self):
+        return Lugar.getAllDetails(self.mydb)
+
     def addPlace(self, json):
         lugar = Lugar(json['lugar'], json['tipo_lugar_id'], json['codigo'], json['extension'], json['latitud'], json['longitud'], json['padre_id'])
         lugar.save(self.mydb)

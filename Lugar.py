@@ -71,6 +71,23 @@ class Lugar():
         return lugares
 
     @staticmethod
+    def getAllDetails(mydb):
+        lugares = []
+        cursor = mydb.cursor()
+        cursor.execute('SELECT a.lugar_id, a.lugar, COALESCE(a.extension, \'No establecido\') AS Extension, COALESCE(c.lugar, \'Ninguno\') AS Padre, b.tipo_lugar FROM lugares AS a INNER JOIN tipo_lugares AS b ON a.tipo_lugar_id = b.tipo_lugar_id LEFT JOIN lugares c ON a.padre_id = c.lugar_id;')
+        places = cursor.fetchall()
+        for lugar in places:
+            new = {
+                'id' : lugar[0],
+                'lugar' : lugar[1],
+                'extension' : lugar[2],
+                'padre' : lugar[3],
+                'tipo_lugar' : lugar[4]
+            }
+            lugares.append(new)
+        return lugares
+
+    @staticmethod
     def getOne(lugar_id, mydb):
         cursor = mydb.cursor()
         cursor.execute('SELECT lugar_id, lugar, codigo, extension, latitud, longitud, padre_id, tipo_lugar_id FROM LUGARES;')

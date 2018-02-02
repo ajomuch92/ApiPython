@@ -15,6 +15,10 @@ def get_place(lugar_id):
         abort(404)
     return jsonify({'lugar': lugar[0]})
 
+@app.route('/lugares/details', methods=['GET'])
+def get_places_details():
+    return jsonify({'lugares': service.getAllDetails()})
+
 @app.route('/lugares', methods=['POST'])
 def create_place():
     if not request.json:
